@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جوالاتك - الفخامة في يدك</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{font-family:'Tajawal',sans-serif;background:#050505;color:#fff}
+.gold-text{background:linear-gradient(90deg,#D4AF37,#FFF1B5,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.filter-btn{padding:9px 18px;border-radius:999px;font-size:13px;font-weight:900;border:1px solid rgba(212,175,55,0.4);background:#111;color:#D4AF37;transition:.3s}
+.filter-btn.active{background:linear-gradient(90deg,#D4AF37,#FFF1B5,#D4AF37);color:#000;box-shadow:0 0 20px gold}
+.card{background:#111;border:1px solid rgba(212,175,55,0.2);border-radius:16px;overflow:hidden;transition:.3s}
+.card:hover{border-color:#D4AF37;box-shadow:0 5px 25px rgba(212,175,55,0.2)}
+</style>
+</head>
+<body>
+
+<!-- اسم المحل واضح وكبير -->
+<header class="bg-black border-b-2 border-yellow-500 p-5 text-center sticky top-0 z-50">
+  <span class="text-4xl">👑</span>
+  <h1 class="text-3xl font-black gold-text mt-1">جوالاتك - الفخامة في يدك</h1>
+  <p class="text-[11px] text-gray-400 mt-1 tracking-[3px]">YEMEN • ULTRA LUXURY • 711720425</p>
+  <p class="text-xs text-gray-300 mt-2">أصلي 100% • ضمان 24 شهر • شحن مجاني لكل اليمن</p>
+</header>
+
+<!-- الاختيارات الفخمة -->
+<div class="text-center py-5">
+  <div class="flex justify-center gap-2 flex-wrap px-3">
+    <button onclick="filterProd('all',this)" class="filter-btn active">✨ الكل</button>
+    <button onclick="filterProd('mobile',this)" class="filter-btn">📱 جوالات</button>
+    <button onclick="filterProd('headphone',this)" class="filter-btn">🎧 سماعات</button>
+    <button onclick="filterProd('charger',this)" class="filter-btn">🔋 شواحن</button>
+    <button onclick="filterProd('laptop',this)" class="filter-btn">💻 لابتوبات</button>
+    <button onclick="filterProd('tv',this)" class="filter-btn">📺 شاشات</button>
+  </div>
+</div>
+
+<!-- المنتجات -->
+<div id="products" class="grid grid-cols-2 md:grid-cols-4 gap-3 px-3 pb-10"></div>
+
+<footer class="text-center p-6 border-t border-yellow-600/20 text-xs text-gray-500">
+  <p class="gold-text font-bold text-sm">جوالاتك - الفخامة في يدك</p>
+  <p class="mt-1">اطلب عبر واتساب: 711720425+</p>
+  <a href="https://wa.me/967711720425?text=السلام عليكم متجر جوالاتك" class="inline-block mt-3 bg-gradient-to-r from-yellow-500 to-yellow-200 text-black px-8 py-2 rounded-full font-black">تواصل واتساب</a>
+</footer>
+
+<script>
+const WHATSAPP="967711720425";
+const allProducts=[
+{name:'iPhone 16 Pro Max',price:1250000,cat:'mobile',img:'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400'},
+{name:'Samsung S24 Ultra',price:950000,cat:'mobile',img:'https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?w=400'},
+{name:'iPhone 15',price:780000,cat:'mobile',img:'https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400'},
+{name:'Redmi Note 13 Pro',price:185000,cat:'mobile',img:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400'},
+{name:'Infinix Hot 40',price:135000,cat:'mobile',img:'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400'},
+{name:'Tecno Spark 20',price:98000,cat:'mobile',img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400'},
+{name:'Samsung A55',price:245000,cat:'mobile',img:'https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?w=400'},
+{name:'iPhone 14',price:750000,cat:'mobile',img:'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400'},
+{name:'AirPods Pro 2',price:85000,cat:'headphone',img:'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=400'},
+{name:'Sony WH-1000XM5',price:120000,cat:'headphone',img:'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400'},
+{name:'JBL Tune 760',price:35000,cat:'headphone',img:'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400'},
+{name:'Redmi Buds 5',price:18000,cat:'headphone',img:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400'},
+{name:'Anker R50i',price:15000,cat:'headphone',img:'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400'},
+{name:'سماعة جيمنج',price:22000,cat:'headphone',img:'https://images.unsplash.com/photo-1599669454699-248893623440?w=400'},
+{name:'شاحن Anker 65W',price:19500,cat:'charger',img:'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400'},
+{name:'شاحن MagSafe',price:28000,cat:'charger',img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400'},
+{name:'شاحن سيارة',price:8500,cat:'charger',img:'https://images.unsplash.com/photo-1622437554241-35c8adbfbf56?w=400'},
+{name:'باور بانك 20000',price:24000,cat:'charger',img:'https://images.unsplash.com/photo-1609592424308-2f67db1d1f31?w=400'},
+{name:'كيبل Type-C',price:4500,cat:'charger',img:'https://images.unsplash.com/photo-1629131726692-1bddba49e8c3?w=400'},
+{name:'MacBook Air M2',price:850000,cat:'laptop',img:'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400'},
+{name:'HP Core i7',price:520000,cat:'laptop',img:'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400'},
+{name:'Dell i5',price:380000,cat:'laptop',img:'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400'},
+{name:'سامسونج 32 Smart',price:145000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'LG 43 4K',price:265000,cat:'tv',img:'https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=400'},
+{name:'TCL 50 QLED',price:345000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'Hisense 55',price:410000,cat:'tv',img:'https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=400'},
+{name:'سامسونج 60',price:520000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'LG 65 OLED',price:680000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'سامسونج 75',price:890000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'Skyworth 42',price:195000,cat:'tv',img:'https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=400'},
+{name:'StarTrack 43',price:155000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'Icon 32',price:98000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'TCL 65 Google TV',price:590000,cat:'tv',img:'https://images.unsplash.com/photo-1593359677879-a4bb92f367d8?w=400'},
+{name:'دانسات 32',price:115000,cat:'tv',img:'https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=400'},
+];
+function render(list){
+document.getElementById('products').innerHTML=list.map(p=>`
+<div class="card"><img src="${p.img}" class="w-full h-32 object-cover">
+<div class="p-2"><h3 class="text-xs font-bold">${p.name}</h3><p class="text-yellow-400 font-black text-sm mt-1">${p.price.toLocaleString()} ريال</p>
+<a href="https://wa.me/${WHATSAPP}?text=أريد ${p.name}" target="_blank" class="block mt-2 bg-gradient-to-r from-yellow-500 to-yellow-200 text-black py-2 rounded-full text-[11px] font-black text-center">اطلب عبر واتساب</a></div></div>`).join('');
+}
+function filterProd(c,b){document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active'); if(c=='all') render(allProducts); else render(allProducts.filter(p=>p.cat==c));}
+render(allProducts);
+</script>
+</body>
+</html>
